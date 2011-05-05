@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 {
-  "Name" -> "Eucliean",
+  "Name" -> "Euclidean",
   "Description" -> "3D Euclidean space",
   "Dimensions" -> 3,
   "Coordinates" -> {x, y, z}, 
