@@ -1,0 +1,1573 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     54157,       1564]
+NotebookOptionsPosition[     49445,       1415]
+NotebookOutlinePosition[     49805,       1431]
+CellTagsIndexPosition[     49762,       1428]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Metrics", "Title",
+ CellChangeTimes->{{3.511597728518793*^9, 3.51159772947202*^9}}],
+
+Cell[TextData[{
+ "A database of metrics for use with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "."
+}], "Subtitle",
+ CellChangeTimes->{{3.511597741298118*^9, 3.511597750021277*^9}}],
+
+Cell[TextData[{
+ "The Metrics package supplies a database of exact solutions for Einstein\
+\[CloseCurlyQuote]s equations for use with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". It is designed to be compatible with xTensor, Kranc and NRMMA, but can be \
+used in any situation (with or without Mathemtaica) where exact solutions are \
+needed."
+}], "Text",
+ CellChangeTimes->{{3.511597767463512*^9, 3.5115978782837048`*^9}, {
+  3.513577938732694*^9, 3.513577940890635*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Basic usage", "Section",
+ CellChangeTimes->{{3.5115977567998867`*^9, 3.511597760151249*^9}}],
+
+Cell["\<\
+For basic usage, we just load the Metrics package which supplies an interface \
+to the database:\
+\>", "Text",
+ CellChangeTimes->{{3.511597896854618*^9, 3.511597917002508*^9}}],
+
+Cell[BoxData[
+ RowBox[{"<<", "Metrics`"}]], "Input",
+ CellChangeTimes->{{3.511597613358652*^9, 3.511597615053439*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"??", "Metrics`*"}]], "Input",
+ CellChangeTimes->{{3.5115976185838413`*^9, 3.5115976233241177`*^9}}],
+
+Cell[BoxData[
+ DynamicModuleBox[{Typeset`open$$ = True}, 
+  PaneSelectorBox[{False->
+   RowBox[{
+    OpenerBox[Dynamic[Typeset`open$$],
+     ImageSize->Small], 
+    StyleBox["Metrics`", "InfoHeading"]}], True->GridBox[{
+     {
+      RowBox[{
+       OpenerBox[Dynamic[Typeset`open$$],
+        ImageSize->Small], 
+       StyleBox["Metrics`", "InfoHeading"]}]},
+     {GridBox[{
+        {
+         ButtonBox["GetMetric",
+          BaseStyle->"InformationLinkLF",
+          ButtonData:>{"Info3513585835-1397816", {"GetMetric", "Metrics`"}},
+          ButtonNote->"Metrics`"], 
+         ButtonBox["ListMetrics",
+          BaseStyle->"InformationLinkLF",
+          ButtonData:>{"Info3513585835-1397816", {"ListMetrics", "Metrics`"}},
+          
+          ButtonNote->"Metrics`"], 
+         ButtonBox["MetricInfo",
+          BaseStyle->"InformationLinkLF",
+          ButtonData:>{"Info3513585835-1397816", {"MetricInfo", "Metrics`"}},
+          ButtonNote->"Metrics`"], 
+         ButtonBox["$MetricPath",
+          BaseStyle->"InformationLinkLF",
+          ButtonData:>{"Info3513585835-1397816", {"$MetricPath", "Metrics`"}},
+          
+          ButtonNote->"Metrics`"]}
+       },
+       DefaultBaseStyle->"InfoGrid",
+       GridBoxItemSize->{"Columns" -> {{
+            Scaled[0.2375]}}}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}]}, 
+   Dynamic[Typeset`open$$],
+   ImageSize->Automatic]]], "Print", "InfoCell",
+ CellChangeTimes->{3.513578635390736*^9}]
+}, Open  ]],
+
+Cell["\<\
+The metrics are stored in files, one file per metric. These files may be in \
+any directory listed in $MetricPath.\
+\>", "Text",
+ CellChangeTimes->{{3.5115979335616426`*^9, 3.511597973136558*^9}, {
+  3.513577956252816*^9, 3.513577959535563*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["$MetricPath"], "Input",
+ CellChangeTimes->{{3.511597624973255*^9, 3.511597633347941*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", "\<\"/home/barry/.Mathematica/Applications/Metrics/metrics\"\>",
+   "}"}]], "Output",
+ CellChangeTimes->{3.511597633775279*^9, 3.513578636957143*^9, 
+  3.513578693734552*^9}]
+}, Open  ]],
+
+Cell["So far there are some simple example metrics included:", "Text",
+ CellChangeTimes->{{3.51159797816851*^9, 3.5115979884639893`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ListMetrics", "[", "]"}], "//", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.511597636757633*^9, 3.511597645331761*^9}, {
+  3.513578653467423*^9, 3.513578655061655*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Eucliean\"\>", "\<\"3D Euclidean space\"\>"},
+    {"\<\"Kerr\"\>", "\<\"Kerr spacetime in Boyer-Lindquist \
+coordinates\"\>"},
+    {"\<\"KerrSchild\"\>", "\<\"Kerr spacetime in Kerr-Schild \
+coordinates\"\>"},
+    {"\<\"Minkowski\"\>", "\<\"4D flat spacetime in Cartesian \
+coordinates\"\>"},
+    {"\<\"SchwarzschildKS\"\>", "\<\"Schwarzschild spacetime in Kerr-Schild \
+coordinates\"\>"},
+    {"\<\"SchwarzschildKSS\"\>", "\<\"Schwarzschild spacetime in spherical \
+Kerr-Schild coordinates\"\>"},
+    {"\<\"Schwarzschild\"\>", "\<\"Schwarzschild spacetime\"\>"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.511597641102398*^9, 3.511597645626593*^9}, 
+   3.51357830375519*^9, 3.513578340459159*^9, 3.513578696771051*^9}]
+}, Open  ]],
+
+Cell["We can get a detailed report of a specific metric", "Text",
+ CellChangeTimes->{{3.511597996133678*^9, 3.511598005271801*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MetricInfo", "[", "\"\<Schwarzschild\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.511597636757633*^9, 3.511597659808765*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Name: \"\>", "\<\"Schwarzschild\"\>"},
+    {"\<\"Description: \"\>", "\<\"Schwarzschild spacetime\"\>"},
+    {"\<\"Coordinates: \"\>", 
+     TagBox[
+      FormBox[
+       RowBox[{"{", 
+        RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}],
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Parameters: \"\>", 
+     TagBox[
+      FormBox[
+       RowBox[{"{", "M", "}"}],
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Metric: \"\>", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           FractionBox[
+            RowBox[{"2", " ", "M"}], "r"]}], "0", "0", "0"},
+         {"0", 
+          FractionBox["1", 
+           RowBox[{"1", "-", 
+            FractionBox[
+             RowBox[{"2", " ", "M"}], "r"]}]], "0", "0"},
+         {"0", "0", 
+          SuperscriptBox["r", "2"], "0"},
+         {"0", "0", "0", 
+          RowBox[{
+           SuperscriptBox["r", "2"], " ", 
+           SuperscriptBox[
+            RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"\<\"SignDet: \"\>", 
+     RowBox[{"-", "1"}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.511597660498828*^9, 3.5135783459104*^9, 
+  3.513578702995151*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metric definitions", "Section",
+ CellChangeTimes->{{3.511598022239088*^9, 3.51159802497754*^9}}],
+
+Cell["\<\
+A metric definition consists of a list of rules specifying the poroperties of \
+the metric. The required elements in this list are:
+\[OpenCurlyDoubleQuote]Name\[CloseCurlyDoubleQuote]: A unique name for this \
+metric.
+\[OpenCurlyDoubleQuote]Description\[CloseCurlyDoubleQuote]: A brief \
+description of the metric.
+\[OpenCurlyDoubleQuote]Coordinates\[CloseCurlyDoubleQuote]: A list of the \
+coordinates.
+\[OpenCurlyDoubleQuote]Metric\[CloseCurlyDoubleQuote]: An array of components \
+of the metric.\
+\>", "Text",
+ CellChangeTimes->{{3.511598032279108*^9, 3.511598044366516*^9}, {
+  3.511599652234192*^9, 3.511599774732388*^9}}],
+
+Cell["\<\
+There are also many optional properties, including:
+\[OpenCurlyDoubleQuote]SignDet\[CloseCurlyDoubleQuote]: Sign of the \
+determinant of the metric. Defaults to -1.
+\[OpenCurlyDoubleQuote]AInds\[CloseCurlyDoubleQuote]: List of abstract \
+indices (for use with xTensor). Defaults to a, ..., z.
+\[OpenCurlyDoubleQuote]BInds\[CloseCurlyDoubleQuote]: List of basis indices \
+(for use with xTensor). Defaults to 1, ..., ndim.\
+\>", "Text",
+ CellChangeTimes->{{3.5115999056904163`*^9, 3.511599918592372*^9}, {
+  3.511600116286455*^9, 3.511600142258458*^9}, {3.511722909600663*^9, 
+  3.5117229842882032`*^9}, {3.513578383959831*^9, 3.513578415641*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"GetMetric", "[", "\"\<Schwarzschild\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.511597676537575*^9, 3.511597684411758*^9}, {
+  3.511600067408957*^9, 3.511600070101018*^9}, {3.5117230157873096`*^9, 
+  3.511723016945097*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"Name\"\>", "\[Rule]", "\<\"Schwarzschild\"\>"}], ",", 
+   RowBox[{"\<\"Description\"\>", 
+    "\[Rule]", "\<\"Schwarzschild spacetime\"\>"}], ",", 
+   RowBox[{"\<\"Dimensions\"\>", "\[Rule]", "4"}], ",", 
+   RowBox[{"\<\"Coordinates\"\>", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}]}], ",", 
+   RowBox[{"\<\"Parameters\"\>", "\[Rule]", 
+    RowBox[{"{", "M", "}"}]}], ",", 
+   RowBox[{"\<\"Metric\"\>", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         FractionBox[
+          RowBox[{"2", " ", "M"}], "r"]}], ",", "0", ",", "0", ",", "0"}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", 
+        FractionBox["1", 
+         RowBox[{"1", "-", 
+          FractionBox[
+           RowBox[{"2", " ", "M"}], "r"]}]], ",", "0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0", ",", 
+        SuperscriptBox["r", "2"], ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0", ",", "0", ",", 
+        RowBox[{
+         SuperscriptBox["r", "2"], " ", 
+         SuperscriptBox[
+          RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], "}"}]}], 
+   ",", 
+   RowBox[{"\<\"SignDet\"\>", "\[Rule]", 
+    RowBox[{"-", "1"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.511722992517385*^9, 3.511723021644273*^9}, 
+   3.513578420790171*^9, 3.513578708157565*^9}]
+}, Open  ]],
+
+Cell["\<\
+We allow a lot of flexibility in metric definitions. All we require is an \
+expression which returns a list of rules including the required rules above. \
+This allows us to programattically define a metric. As an example, we can \
+define the Kerr-Schild metric using the following:\
+\>", "Text",
+ CellChangeTimes->{{3.511723033886449*^9, 3.5117231243877974`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FilePrint", "[", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"$MetricPath", "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ",", "\"\<KerrSchild.m\>\""}], "}"}], 
+   "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.511723248314353*^9, 3.511723335799258*^9}}],
+
+Cell["\<\
+(* ::Package:: *)
+
+Module[{r, lu, h, \[Eta]},
+  r = Sqrt[x^2+y^2+z^2];
+  lu={1,(r x+a y)/(r^2+a^2),(r y-a x)/(r^2+a^2),z/r};
+  h=(M r)/(r^2+a^2 z^2/r^2)//Simplify;
+
+  \[Eta]={{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+
+  {
+    \"Name\" -> \"KerrSchild\",
+    \"Description\" -> \"Kerr spacetime in Kerr-Schild coordinates\",
+    \"Dimensions\" -> 4,
+    \"Coordinates\" -> {t, x, y, z},
+    \"Parameters\" -> {M, a},
+    \"Metric\" -> \[Eta] + 2 h Outer[Times,lu, lu],
+    \"SignDet\" -> -1
+  }
+]\
+\>", "Print",
+ CellChangeTimes->{3.5117233364178467`*^9, 3.513578444921859*^9, 
+  3.513578710106915*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Usage with xTensor", "Section",
+ CellChangeTimes->{{3.511599787524488*^9, 3.51159979564389*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"<<", "Metrics`LoadMetric`"}]], "Input",
+ CellChangeTimes->{{3.5077292460808477`*^9, 3.507729250479611*^9}, {
+  3.507742292359775*^9, 3.507742295973145*^9}, {3.5115973071881123`*^9, 
+  3.511597308189636*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{3.513578725035937*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xPerm`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.1.1\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "4", ",", "27"}], "}"}]}],
+  SequenceForm["Package xAct`xPerm`  version ", "1.1.1", ", ", {2011, 4, 27}],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{3.513578725141572*^9}],
+
+Cell[BoxData["\<\"CopyRight (C) 2003-2011, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print",
+ CellChangeTimes->{3.513578725154633*^9}],
+
+Cell[BoxData["\<\"Connecting to external linux executable...\"\>"], "Print",
+ CellChangeTimes->{3.513578725396323*^9}],
+
+Cell[BoxData["\<\"Connection established.\"\>"], "Print",
+ CellChangeTimes->{3.51357872558192*^9}],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{3.513578725592575*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xTensor`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.0.1\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "4", ",", "27"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`xTensor`  version ", "1.0.1", ", ", {2011, 4, 27}],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.513578725599962*^9}],
+
+Cell[BoxData["\<\"CopyRight (C) 2002-2011, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print",
+ CellChangeTimes->{3.513578725610488*^9}],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{3.513578726539019*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xCoba`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"0.7.0\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "4", ",", "30"}], "}"}]}],
+  SequenceForm["Package xAct`xCoba`  version ", "0.7.0", ", ", {2011, 4, 30}],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{3.513578726744486*^9}],
+
+Cell[BoxData["\<\"CopyRight (C) 2005-2011, David Yllanes and Jose M. \
+Martin-Garcia, under the General Public License.\"\>"], "Print",
+ CellChangeTimes->{3.513578726756342*^9}],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{3.513578726765431*^9}],
+
+Cell[BoxData["\<\"These packages come with ABSOLUTELY NO WARRANTY; for \
+details type Disclaimer[]. This is free software, and you are welcome to \
+redistribute it under certain conditions. See the General Public License for \
+details.\"\>"], "Print",
+ CellChangeTimes->{3.513578726770318*^9}],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{3.513578726780443*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$DefInfoQ", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$CVVerbose", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$UndefInfoQ", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$PrePrint", "=", "ScreenDollarIndices"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.507732841976081*^9, 3.507732847522078*^9}, {
+  3.507732887179035*^9, 3.507732895488038*^9}, {3.5077349491042833`*^9, 
+  3.507734950367035*^9}, {3.5077355129522142`*^9, 3.507735528004509*^9}}],
+
+Cell[BoxData[
+ RowBox[{"LoadMetric", "[", "\"\<Minkowski\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.507734208399925*^9, 3.507734215225898*^9}, {
+  3.511723400348756*^9, 3.511723406525586*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MetricInfo", "[", "$CurrentMetric", "]"}]], "Input"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Name: \"\>", "\<\"Minkowski\"\>"},
+    {"\<\"Description: \"\>", "\<\"4D flat spacetime in Cartesian coordinates\
+\"\>"},
+    {"\<\"Coordinates: \"\>", 
+     TagBox[
+      FormBox[
+       RowBox[{"{", 
+        RowBox[{"t", ",", "x", ",", "y", ",", "z"}], "}"}],
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Parameters: \"\>", 
+     TagBox[
+      FormBox["\<\"Parameters\"\>",
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Metric: \"\>", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"-", "1"}], "0", "0", "0"},
+         {"0", "1", "0", "0"},
+         {"0", "0", "1", "0"},
+         {"0", "0", "0", "1"}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"\<\"SignDet: \"\>", 
+     RowBox[{"-", "1"}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.50773541238907*^9, 3.5077357538991337`*^9, 3.507735969874587*^9, {
+   3.5077360401162663`*^9, 3.5077360637700033`*^9}, 3.5077361981710253`*^9, {
+   3.507736395913167*^9, 3.507736408666121*^9}, 3.50774285692457*^9, 
+   3.513578746261265*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"UnloadMetric", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.50773470529319*^9, 3.507734709156333*^9}, 
+   3.50773487242513*^9}],
+
+Cell[BoxData[
+ RowBox[{"LoadMetric", "[", "\"\<Schwarzschild\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.5077293142279053`*^9, 3.507729319263872*^9}, {
+  3.507741081746161*^9, 3.5077410840816793`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MetricInfo", "[", "$CurrentMetric", "]"}]], "Input"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Name: \"\>", "\<\"Schwarzschild\"\>"},
+    {"\<\"Description: \"\>", "\<\"Schwarzschild spacetime\"\>"},
+    {"\<\"Coordinates: \"\>", 
+     TagBox[
+      FormBox[
+       RowBox[{"{", 
+        RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}],
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Parameters: \"\>", 
+     TagBox[
+      FormBox[
+       RowBox[{"{", 
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "}"}],
+       StandardForm],
+      StandardForm,
+      Editable->True]},
+    {"\<\"Metric: \"\>", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           FractionBox[
+            RowBox[{"2", " ", 
+             InterpretationBox[
+              StyleBox["M",
+               ShowAutoStyles->False,
+               AutoSpacing->False],
+              $CellContext`M,
+              Editable->False]}], "r"]}], "0", "0", "0"},
+         {"0", 
+          FractionBox["1", 
+           RowBox[{"1", "-", 
+            FractionBox[
+             RowBox[{"2", " ", 
+              InterpretationBox[
+               StyleBox["M",
+                ShowAutoStyles->False,
+                AutoSpacing->False],
+               $CellContext`M,
+               Editable->False]}], "r"]}]], "0", "0"},
+         {"0", "0", 
+          SuperscriptBox["r", "2"], "0"},
+         {"0", "0", "0", 
+          RowBox[{
+           SuperscriptBox["r", "2"], " ", 
+           SuperscriptBox[
+            RowBox[{
+             InterpretationBox[
+              StyleBox["Sin",
+               ShowAutoStyles->False,
+               AutoSpacing->False],
+              Sin,
+              Editable->False], "[", "\[Theta]", "]"}], "2"]}]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"\<\"SignDet: \"\>", 
+     RowBox[{"-", "1"}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.507735406285219*^9, 3.507735644247019*^9, 3.507735753265819*^9, 
+   3.507735969284215*^9, {3.507736012106594*^9, 3.5077360389954433`*^9}, 
+   3.507736197969718*^9, 3.5077363408140574`*^9, 3.507736389398717*^9, 
+   3.507741086102886*^9, {3.5077427791034107`*^9, 3.507742785660337*^9}, 
+   3.507742856070889*^9, 3.51357875276338*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MetricCompute", "[", 
+  RowBox[{"g", ",", "Schwarzschild", ",", " ", "All"}], "]"}]], "Input",
+ CellChangeTimes->{{3.507740859515703*^9, 3.507740897319189*^9}, {
+  3.507741090146509*^9, 3.507741091937916*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"DetMetric\"\>", "[", "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.070532`5.299931192336302", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "DetMetric"[], " constructed in ", 0.070532`5.299931192336302, " seconds"],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578757703861*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.014405`4.610058256112405", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.014405`4.610058256112405, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578757762369*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.000425`3.0799339235462826", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", "552", 
+   "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.000425`3.0799339235462826, " seconds and ", 552, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578757772432*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Metric\"\>", "[", 
+    RowBox[{"1", ",", "1"}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.08107`5.360405166513247", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Metric"[1, 1], " constructed in ", 0.08107`5.360405166513247, " seconds"],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578757806257*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.030752`4.9394183594844225", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.030752`4.9394183594844225, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578757974038*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.01366`4.586995692841485", "\[InvisibleSpace]", "\<\" seconds and \"\>", 
+   "\[InvisibleSpace]", "6464", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.01366`4.586995692841485, " seconds and ", 6464, " bytes"],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758150539*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"DMetric\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.002333`3.8194597322897232", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "DMetric"[-1, -1, -1], " constructed in ", 0.002333`3.8194597322897232, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758164678*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.017019`4.6824790317803355", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.017019`4.6824790317803355, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758169179*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.008747`4.393404120021344", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "47824", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.008747`4.393404120021344, " seconds and ", 47824, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758176883*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Christoffel\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.002743`3.8897708011005023", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Christoffel"[-1, -1, -1], " constructed in ", 0.002743`3.8897708011005023,
+    " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758186169*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.017288`4.689289747371156", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.017288`4.689289747371156, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758192605*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.0242960000000000001`4.837079772406182", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", "60296",
+    "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.0242960000000000001`4.837079772406182, " seconds and ", 
+   60296, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758197319*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Christoffel\"\>", "[", 
+    RowBox[{"1", ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.005202`4.167715341355825", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Christoffel"[1, -1, -1], " constructed in ", 0.005202`4.167715341355825, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758201878*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.034426`4.988431557912924", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.034426`4.988431557912924, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.51357875820648*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.015204`4.633502854427039", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "52968", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.015204`4.633502854427039, " seconds and ", 52968, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758218058*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"DDMetric\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.004942`4.1454477345620315", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "DDMetric"[-1, -1, -1, -1], " constructed in ", 
+   0.004942`4.1454477345620315, " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758409895*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.040704`5.061182083128272", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.040704`5.061182083128272, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758600377*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.060914`5.2362621124669255", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", 
+   "277936", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.060914`5.2362621124669255, " seconds and ", 277936, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758606069*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Riemann\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.023551`4.823554345948635", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Riemann"[-1, -1, -1, -1], " constructed in ", 0.023551`4.823554345948635, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758618956*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.026585`4.87618165814617", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.026585`4.87618165814617, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.51357875862323*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.137861`5.5909864179000905", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", 
+   "263504", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.137861`5.5909864179000905, " seconds and ", 263504, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578758818813*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Riemann\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", "1"}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.055405`5.1950939527086035", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Riemann"[-1, -1, -1, 1], " constructed in ", 0.055405`5.1950939527086035, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759015287*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.063258`5.252660450397608", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.063258`5.252660450397608, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759025628*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.150962`5.630412634383703", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "225192", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.150962`5.630412634383703, " seconds and ", 225192, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759220705*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Ricci\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.012973`4.564585411583791", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Ricci"[-1, -1], " constructed in ", 0.012973`4.564585411583791, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759234477*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.000819`3.364828895256389", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.000819`3.364828895256389, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759238802*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.010106`4.456124287398184", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "8592", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.010106`4.456124287398184, " seconds and ", 8592, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759250524*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"RicciScalar\"\>", "[", "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.000378`3.029036793333196", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "RicciScalar"[], " constructed in ", 0.000378`3.029036793333196, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759255024*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.000135`2.581878761990977", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.000135`2.581878761990977, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759262766*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.000338`2.9804616937736257", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", "240", 
+   "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.000338`2.9804616937736257, " seconds and ", 240, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759270688*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Einstein\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.000585`3.2187008595781514", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Einstein"[-1, -1], " constructed in ", 0.000585`3.2187008595781514, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759278861*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.000807`3.358418528218041", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.000807`3.358418528218041, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759290643*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.005959`4.226718378920758", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "8592", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.005959`4.226718378920758, " seconds and ", 8592, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759294855*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Weyl\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.012235`4.539148967183779", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Weyl"[-1, -1, -1, -1], " constructed in ", 0.012235`4.539148967183779, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759304691*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.008775`4.394792118633832", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.008775`4.394792118633832, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759315121*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.190589`5.731642824860406", "\[InvisibleSpace]", "\<\" seconds and \"\>",
+    "\[InvisibleSpace]", "263504", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.190589`5.731642824860406, " seconds and ", 263504, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759503005*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Riemann\"\>", "[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", 
+     RowBox[{"-", "1"}], ",", "1", ",", "1"}], "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.018185`4.711258298886702", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Riemann"[-1, -1, 1, 1], " constructed in ", 0.018185`4.711258298886702, 
+   " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.51357875969329*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.040237`5.056170586517629", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.040237`5.056170586517629, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759705005*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.145382`5.61405563258714", "\[InvisibleSpace]", "\<\" seconds and \"\>", 
+   "\[InvisibleSpace]", "200768", "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.145382`5.61405563258714, " seconds and ", 200768, 
+   " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759864396*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"\<\"Kretschmann\"\>", "[", "]"}], 
+   "\[InvisibleSpace]", "\<\" constructed in \"\>", "\[InvisibleSpace]", 
+   "0.016169`4.66022815453339", "\[InvisibleSpace]", "\<\" seconds\"\>"}],
+  SequenceForm[
+   "Kretschmann"[], " constructed in ", 0.016169`4.66022815453339, " seconds"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759869403*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Applied \"\>", "\[InvisibleSpace]", "Together", 
+   "\[InvisibleSpace]", "\<\" in \"\>", "\[InvisibleSpace]", 
+   "0.000328`2.967418837207654", "\[InvisibleSpace]", "\<\" seconds \"\>"}],
+  SequenceForm[
+  "  Applied ", Together, " in ", 0.000328`2.967418837207654, " seconds "],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759874925*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"  Stored in \"\>", "\[InvisibleSpace]", 
+   "0.000394`3.0470412153215447", 
+   "\[InvisibleSpace]", "\<\" seconds and \"\>", "\[InvisibleSpace]", "472", 
+   "\[InvisibleSpace]", "\<\" bytes\"\>"}],
+  SequenceForm[
+  "  Stored in ", 0.000394`3.0470412153215447, " seconds and ", 472, " bytes"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.507742871410865*^9, 3.513578759879259*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TensorValues", "[", 
+  RowBox[{"KretschmannCD", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.507740906748146*^9, 3.507740916710969*^9}}],
+
+Cell[BoxData[
+ RowBox[{"FoldedRule", "[", 
+  RowBox[{
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"K", "[", "\[EmptyDownTriangle]", "]"}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`KretschmannCD[],
+      Editable->False], "\[Rule]", 
+     FractionBox[
+      RowBox[{"48", " ", 
+       SuperscriptBox[
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "2"]}], 
+      SuperscriptBox[
+       InterpretationBox[
+        StyleBox["r",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        $CellContext`r[],
+        Editable->False], "6"]]}], "}"}]}], "]"}]], "Output",
+ CellChangeTimes->{
+  3.507740917243792*^9, 3.507741095879264*^9, {3.5077428573642817`*^9, 
+   3.507742875609206*^9}, 3.51357876636396*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr", "=", 
+  RowBox[{
+   RowBox[{"RiemannCD", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", "c", ",", "d"}], "]"}], 
+   RowBox[{"RiemannCD", "[", 
+    RowBox[{
+     RowBox[{"-", "c"}], ",", 
+     RowBox[{"-", "e"}], ",", "a", ",", "b"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.507742911749827*^9, 3.507742912683545*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " ", "c", "d"},
+          {"a", "b", " ", " "}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, $CellContext`c, \
+$CellContext`d],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " ", "a", "b"},
+          {"c", "e", " ", " "}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`c, -$CellContext`e, $CellContext`a, \
+$CellContext`b],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{{3.507742904519582*^9, 3.507742913948983*^9}, 
+   3.513578768321486*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ComponentArray", "[", 
+   RowBox[{"TraceBasisDummy", "[", 
+    RowBox[{
+     RowBox[{"ToBasis", "[", "Schwarzschild", "]"}], "[", "expr", "]"}], 
+    "]"}], "]"}], "/.", 
+  RowBox[{"TensorValues", "[", "RiemannCD", "]"}]}]], "Input",
+ CellChangeTimes->{{3.507741128465839*^9, 3.507741169601019*^9}, {
+   3.507741226385591*^9, 3.507741239675593*^9}, {3.507741283362358*^9, 
+   3.5077413322789288`*^9}, 3.507741362449286*^9, {3.507742917750524*^9, 
+   3.5077429183229103`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"12", " ", 
+       SuperscriptBox[
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "2"]}], 
+      SuperscriptBox[
+       InterpretationBox[
+        StyleBox["r",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        $CellContext`r[],
+        Editable->False], "6"]], ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     FractionBox[
+      RowBox[{"12", " ", 
+       SuperscriptBox[
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "2"]}], 
+      SuperscriptBox[
+       InterpretationBox[
+        StyleBox["r",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        $CellContext`r[],
+        Editable->False], "6"]], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     FractionBox[
+      RowBox[{"12", " ", 
+       SuperscriptBox[
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "2"]}], 
+      SuperscriptBox[
+       InterpretationBox[
+        StyleBox["r",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        $CellContext`r[],
+        Editable->False], "6"]], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     FractionBox[
+      RowBox[{"12", " ", 
+       SuperscriptBox[
+        InterpretationBox[
+         StyleBox["M",
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`M,
+         Editable->False], "2"]}], 
+      SuperscriptBox[
+       InterpretationBox[
+        StyleBox["r",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        $CellContext`r[],
+        Editable->False], "6"]]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.5077411421704884`*^9, 3.507741171475938*^9}, 
+   3.507741242015153*^9, {3.5077413202036533`*^9, 3.507741333575555*^9}, 
+   3.507741365615602*^9, {3.507742857416246*^9, 3.507742877787505*^9}, 
+   3.507742920626389*^9, 3.513578771587954*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1076, 597},
+WindowMargins->{{Automatic, 29}, {Automatic, 239}},
+ShowSelection->True,
+FrontEndVersion->"8.0 for Linux x86 (32-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 89, 1, 88, "Title"],
+Cell[671, 25, 191, 6, 54, "Subtitle"],
+Cell[865, 33, 483, 10, 49, "Text"],
+Cell[CellGroupData[{
+Cell[1373, 47, 98, 1, 74, "Section"],
+Cell[1474, 50, 186, 4, 30, "Text"],
+Cell[1663, 56, 118, 2, 30, "Input"],
+Cell[CellGroupData[{
+Cell[1806, 62, 123, 2, 30, "Input"],
+Cell[1932, 66, 1483, 40, 57, "Print"]
+}, Open  ]],
+Cell[3430, 109, 255, 5, 30, "Text"],
+Cell[CellGroupData[{
+Cell[3710, 118, 103, 1, 30, "Input"],
+Cell[3816, 121, 202, 4, 30, "Output"]
+}, Open  ]],
+Cell[4033, 128, 137, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[4195, 133, 206, 4, 30, "Input"],
+Cell[4404, 139, 1211, 28, 137, "Output"]
+}, Open  ]],
+Cell[5630, 170, 131, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[5786, 175, 149, 2, 30, "Input"],
+Cell[5938, 179, 2303, 69, 203, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8290, 254, 102, 1, 74, "Section"],
+Cell[8395, 257, 637, 13, 106, "Text"],
+Cell[9035, 272, 655, 11, 87, "Text"],
+Cell[CellGroupData[{
+Cell[9715, 287, 248, 4, 30, "Input"],
+Cell[9966, 293, 1518, 41, 86, "Output"]
+}, Open  ]],
+Cell[11499, 337, 373, 6, 49, "Text"],
+Cell[CellGroupData[{
+Cell[11897, 347, 307, 8, 30, "Input"],
+Cell[12207, 357, 612, 22, 311, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12868, 385, 102, 1, 74, "Section"],
+Cell[CellGroupData[{
+Cell[12995, 390, 231, 4, 30, "Input"],
+Cell[CellGroupData[{
+Cell[13251, 398, 138, 2, 23, "Print"],
+Cell[13392, 402, 410, 10, 23, "Print"],
+Cell[13805, 414, 159, 2, 23, "Print"],
+Cell[13967, 418, 118, 1, 23, "Print"],
+Cell[14088, 421, 98, 1, 23, "Print"],
+Cell[14189, 424, 138, 2, 23, "Print"],
+Cell[14330, 428, 414, 10, 23, "Print"],
+Cell[14747, 440, 159, 2, 23, "Print"],
+Cell[14909, 444, 138, 2, 23, "Print"],
+Cell[15050, 448, 410, 10, 23, "Print"],
+Cell[15463, 460, 177, 2, 23, "Print"],
+Cell[15643, 464, 138, 2, 23, "Print"],
+Cell[15784, 468, 293, 4, 43, "Print"],
+Cell[16080, 474, 138, 2, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[16245, 480, 552, 11, 88, "Input"],
+Cell[16800, 493, 194, 3, 30, "Input"],
+Cell[CellGroupData[{
+Cell[17019, 500, 76, 1, 30, "Input"],
+Cell[17098, 503, 2078, 60, 170, "Output"]
+}, Open  ]],
+Cell[19191, 566, 150, 3, 30, "Input"],
+Cell[19344, 571, 202, 3, 30, "Input"],
+Cell[CellGroupData[{
+Cell[19571, 578, 76, 1, 30, "Input"],
+Cell[19650, 581, 3305, 97, 203, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22992, 683, 233, 4, 30, "Input"],
+Cell[CellGroupData[{
+Cell[23250, 691, 431, 10, 23, "Print"],
+Cell[23684, 703, 424, 8, 23, "Print"],
+Cell[24111, 713, 436, 9, 23, "Print"],
+Cell[24550, 724, 457, 11, 23, "Print"],
+Cell[25010, 737, 426, 8, 23, "Print"],
+Cell[25439, 747, 433, 9, 23, "Print"],
+Cell[25875, 758, 543, 14, 23, "Print"],
+Cell[26421, 774, 426, 8, 23, "Print"],
+Cell[26850, 784, 438, 9, 23, "Print"],
+Cell[27291, 795, 551, 14, 23, "Print"],
+Cell[27845, 811, 424, 8, 23, "Print"],
+Cell[28272, 821, 468, 10, 23, "Print"],
+Cell[28743, 833, 527, 13, 23, "Print"],
+Cell[29273, 848, 423, 8, 23, "Print"],
+Cell[29699, 858, 438, 9, 23, "Print"],
+Cell[30140, 869, 580, 15, 23, "Print"],
+Cell[30723, 886, 424, 8, 23, "Print"],
+Cell[31150, 896, 446, 10, 23, "Print"],
+Cell[31599, 908, 576, 15, 23, "Print"],
+Cell[32178, 925, 421, 8, 23, "Print"],
+Cell[32602, 935, 446, 10, 23, "Print"],
+Cell[33051, 947, 556, 14, 23, "Print"],
+Cell[33610, 963, 424, 8, 23, "Print"],
+Cell[34037, 973, 440, 9, 23, "Print"],
+Cell[34480, 984, 502, 13, 23, "Print"],
+Cell[34985, 999, 424, 8, 23, "Print"],
+Cell[35412, 1009, 432, 8, 23, "Print"],
+Cell[35847, 1019, 436, 10, 23, "Print"],
+Cell[36286, 1031, 424, 8, 23, "Print"],
+Cell[36713, 1041, 436, 9, 23, "Print"],
+Cell[37152, 1052, 510, 13, 23, "Print"],
+Cell[37665, 1067, 424, 8, 23, "Print"],
+Cell[38092, 1077, 432, 8, 23, "Print"],
+Cell[38527, 1087, 570, 15, 23, "Print"],
+Cell[39100, 1104, 424, 8, 23, "Print"],
+Cell[39527, 1114, 440, 9, 23, "Print"],
+Cell[39970, 1125, 531, 13, 23, "Print"],
+Cell[40504, 1140, 424, 8, 23, "Print"],
+Cell[40931, 1150, 438, 9, 23, "Print"],
+Cell[41372, 1161, 430, 9, 23, "Print"],
+Cell[41805, 1172, 424, 8, 23, "Print"],
+Cell[42232, 1182, 436, 9, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42717, 1197, 166, 3, 30, "Input"],
+Cell[42886, 1202, 940, 31, 50, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43863, 1238, 384, 11, 30, "Input"],
+Cell[44250, 1251, 2258, 63, 33, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46545, 1319, 510, 11, 30, "Input"],
+Cell[47058, 1332, 2347, 78, 50, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
