@@ -51,7 +51,7 @@ LoadMetric[metricName_String]:=
   defParam /@ parameters;
 
   (* Define coordinate chart *)
-  DefChart[Symbol[name], manifold, Range[0, dim-1], coordTensors];
+  DefChart[Symbol[name], manifold, Range[1, dim], coordTensors];
 
   (* Set metric components *)
   MetricInBasis[metric, -basis, metricComps /. Thread[coords -> coordTensors]];
