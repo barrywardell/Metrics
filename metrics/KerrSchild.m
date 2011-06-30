@@ -1,7 +1,8 @@
 (* ::Package:: *)
 
 Module[{r, lu, h, \[Eta]},
-  r = Sqrt[x^2+y^2+z^2];
+  rho = Sqrt[x^2+y^2+z^2];
+  r = Sqrt[(rho^2-a^2+Sqrt[(rho^2-a^2)^2+4 a^2 z^2])/2];
   lu={1,(r x+a y)/(r^2+a^2),(r y-a x)/(r^2+a^2),z/r};
   h=(M r)/(r^2+a^2 z^2/r^2)//Simplify;
 
