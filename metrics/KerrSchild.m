@@ -14,6 +14,11 @@ Module[{lu, h, \[Eta]},
     "Parameters" -> {M, a},
     "Metric" -> \[Eta] + 2 h Outer[Times,lu, lu],
     "SignDet" -> -1,
-    "Shorthands" -> {r[x,y,z] -> Sqrt[(x^2+y^2+z^2-a^2+Sqrt[(x^2+y^2+z^2-a^2)^2+4 a^2 z^2])/2]}
+    "Shorthands" -> {r[x,y,z] -> Sqrt[(x^2+y^2+z^2-a^2+Sqrt[(x^2+y^2+z^2-a^2)^2+4 a^2 z^2])/2]},
+    "SimplifyHints" ->
+        {(4 a^2 z^2 + (-a^2 + x^2 + y^2 + z^2)^2)^n_ :>
+            (2 r[x, y, z]^2 + a^2 - x^2 - y^2 - z^2)^(2 n),
+         (r[x, y, z]^m_)^n_ :> r[x, y, z]^(m n)
+        }
   }
 ]
