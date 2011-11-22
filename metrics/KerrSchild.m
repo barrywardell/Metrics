@@ -1,7 +1,8 @@
 (* ::Package:: *)
 
-Module[{lu, h, \[Eta]},
-  lu={1,(r[x,y,z] x+a y)/(r[x,y,z]^2+a^2),(r[x,y,z] y-a x)/(r[x,y,z]^2+a^2),z/r[x,y,z]};
+Module[{ld, lu, h, \[Eta]},
+  ld={1,(r[x,y,z] x+a y)/(r[x,y,z]^2+a^2),(r[x,y,z] y-a x)/(r[x,y,z]^2+a^2),z/r[x,y,z]};
+  lu={-1,(r[x,y,z] x+a y)/(r[x,y,z]^2+a^2),(r[x,y,z] y-a x)/(r[x,y,z]^2+a^2),z/r[x,y,z]};
   h=(M r[x,y,z])/(r[x,y,z]^2+a^2 z^2/r[x,y,z]^2)//Simplify;
 
   \[Eta]={{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
@@ -12,7 +13,8 @@ Module[{lu, h, \[Eta]},
     "Dimensions" -> 4,
     "Coordinates" -> {t, x, y, z},
     "Parameters" -> {M, a},
-    "Metric" -> \[Eta] + 2 h Outer[Times,lu, lu],
+    "Metric" -> \[Eta] + 2 h Outer[Times, ld, ld],
+    "InverseMetric" -> \[Eta] - 2 h Outer[Times, lu, lu],
     "SignDet" -> -1,
     "Shorthands" -> {r[x,y,z] -> Sqrt[(x^2+y^2+z^2-a^2+Sqrt[(x^2+y^2+z^2-a^2)^2+4 a^2 z^2])/2]},
     "SimplifyHints" ->
