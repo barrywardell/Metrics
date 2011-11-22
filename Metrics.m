@@ -3,6 +3,7 @@
 BeginPackage["Metrics`"];
 
 GetMetric::usage   = "GetMetric[m] gets the metric m.";
+MetricProperty::usage   = "MetricProperty[m, p] gets the property p of the metric m.";
 ListMetrics::usage = "ListMetrics[] lists all available metrics.";
 MetricInfo::usage  = "MetricInfo[m] gives information on the metric m.";
 $MetricPath::usage = "$MetricPath is a variable specifying the path to search for metrics.";
@@ -20,6 +21,11 @@ GetMetric[m_String] := Module[{fileName},
 
   Get[fileName, Path -> $MetricPath]
 ];
+
+MetricProperty[m_String, p_String] := Module[{metric},
+  metric = GetMetric[m];
+  ((p /. metric) /. p -> None)
+]
 
 ListMetrics[] := Module[{files, metrics},
   files = FileNames["*.m", $MetricPath];
