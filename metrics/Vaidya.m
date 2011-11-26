@@ -1,6 +1,16 @@
 (* ::Package:: *)
 
-Module[{rx, thetax, phix, theta, phi, vu, rv, u, v, m, gv, CX, J, gx},
+(* The Vaidya spacetimes are parametrized by a mass function m(v). Some common
+   choices are:
+    Minkowski:              m = 0
+    Schwarzschild:          m = M
+    Simple Vaidya:          m = M + dM v
+    More complex Vaidya:    m = M (1 + Tanh[v dM / M]^2)
+   Here, we implement the more complex Vaidya type. This can be changed by
+   modifying the shorthand below.
+ *)
+
+Module[{rx, thetax, phix, theta, phi, vu, rv, u, v, gv, CX, J, gx},
   (* r in terms of Cartesian coordinates *)
   rx = Sqrt[x^2+y^2+z^2];
   thetax = ArcCos[z / rx];
@@ -10,14 +20,8 @@ Module[{rx, thetax, phix, theta, phi, vu, rv, u, v, m, gv, CX, J, gx},
   vu = {t+rx, rx, thetax, phix};
   rv = u; (* r in terms of Vaidya coordinates *)
 
-  (* Mass function m(v) *)
-  (* m = 0; *) (* Minkowski *)
-  (* m = M; *) (* Schwarzschild *)
-  (* m = M + dM v; *) (* Simple Vaidya *)
-  m = M (1 + Tanh[v dM / M]^2); (* More complex Vaidya *)
-
   (* Vaidya metric, in Vaidya coordinates, as function of Vaidya coordinates *)
-  gv = {{ -(1-2m/rv), 1, 0, 0}, {1, 0, 0, 0},
+  gv = {{ -(1-2 m[t,x,y,z]/rv), 1, 0, 0}, {1, 0, 0, 0},
         {0, 0, rv^2, 0}, {0, 0, 0, rv^2 Sin[theta]^2}};
 
   (* Coordinate transformation , Vaidya -> Cartesian*)
@@ -31,16 +35,16 @@ Module[{rx, thetax, phix, theta, phi, vu, rv, u, v, m, gv, CX, J, gx},
   J = Simplify[Table[D[vu, X], {X, {t, x, y, z}}]];
 
   (* Convert metric to Cartesian coordinates *)
-  gx = Simplify[J.gv.Transpose[J]] /. rx :>  r[x,y,z];
+  gx = Simplify[J.gv.Transpose[J]] /. {(rx^2)^n_ :>  r[x,y,z]^(2n)};
 
   {
     "Name" -> "Vaidya",
-    "Description" -> "A Vaidya spacetime",
+    "Description" -> "A Vaidya spacetime with mass function M (1 + Tanh[v dM / M]^2)",
     "Dimensions" -> 4,
     "Coordinates" -> {t, x, y, z},
     "Parameters" -> {M, dM},
     "Metric" -> gx,
     "SignDet" -> -1,
-    "Shorthands" -> {r[x,y,z] -> Sqrt[x^2+y^2+z^2]}
+    "Shorthands" -> {r[x,y,z] -> Sqrt[x^2+y^2+z^2], m[t,x,y,z] -> M (1 + Tanh[vu[[1]] dM / M]^2)}
   }
 ]
