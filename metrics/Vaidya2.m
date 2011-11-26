@@ -18,7 +18,7 @@ Module[{rx, thetax, phix, vu, rv, m, gv, CX, J, gx},
   (* m = M + dM v; *) (* Simple Vaidya *)
    m = M (1 + Tanh[v dM / M]^2); (* More complex Vaidya *)
   (* Vaidya metric, in Vaidya coordinates, as function of Vaidya coordinates *)
-  gv = {{ -(1-2m/(rv+eps)), 1, 0, 0}, {1, 0, 0, 0},
+  gv = {{ -(1-2m/rv), 1, 0, 0}, {1, 0, 0, 0},
         {0, 0, rv^2, 0}, {0, 0, 0, rv^2 Sin[theta]^2}};
   (* Coordinate transformation *)
   CX = {v->vu[[1]], u->vu[[2]], theta->vu[[3]], phi->vu[[4]]};
@@ -31,17 +31,17 @@ Module[{rx, thetax, phix, vu, rv, m, gv, CX, J, gx},
   (* TODO: check order of indices and loops *)
   gx = Simplify[Table[Sum[J[[X1]][[V1]] J[[X2]][[V2]] gv[[V1]][[V2]],
                           {V1, 1, 4}, {V2, 1, 4}],
-                      {X1, 1, 4}, {X2, 1, 4}]];
+                      {X1, 1, 4}, {X2, 1, 4}]] /. Sqrt[x^2+y^2+z^2] :>  r[x,y,z];
 
   {
     "Name" -> "Vaidya",
     "Description" -> "A Vaidya spacetime",
     "Dimensions" -> 4,
     "Coordinates" -> {t, x, y, z},
-    "Parameters" -> {M, dM, eps},
+    "Parameters" -> {M, dM},
     "Metric" -> gx,
     "SignDet" -> -1,
-    "Shorthands" -> {},
+    "Shorthands" -> {r[x,y,z] -> Sqrt[x^2+y^2+z^2]},
     "SimplifyHints" -> {}
   }
 ]
