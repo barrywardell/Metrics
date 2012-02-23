@@ -1,10 +1,12 @@
 (* ::Package:: *)
 
 Module[
- {Mmatch, psi4},
-  Mmatch = 4 r[x,y,z] - 8 (r[x,y,z]^2/2 + (Cos[4 Pi r[x,y,z]/M] - 1) (M/(4 Pi))^2)/M;
-  psi4 = (1 + Mmatch/(2 r[x,y,z]))^4;
+ {rad, Mmatch, psi4},
+  (* For r>M/2, we want the mass function to be M, for r<M/2 it is a function of radius *)
+  rad    = Min[r[x,y,z], M/2];
+  Mmatch = 4 rad - 8 (rad^2/2 + (Cos[4 Pi rad/M] - 1) (M/(4 Pi))^2)/M;
 
+  psi4   = (1 + Mmatch/(2 r[x,y,z]))^4;
   {
     "Name" -> "ModifiedSchwarzschildBL",
     "Description" -> "Modified Schwarzschild spacetime in Brill-Lindquist coordinates with "<>
